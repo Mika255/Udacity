@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.navigation.ShoeListFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/shoelist_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_default">
+
+            <TextView
+                android:id="@+id/shoe_list_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_launcher_background"
+                android:padding="@dimen/padding_default"
+                android:text="@string/shoe_list_title"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="?android:attr/windowTitleSize" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_big" />
+
+            <LinearLayout
+                android:id="@+id/shoe_add_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorList"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_big"
+                android:paddingTop="@dimen/padding_big"
+                android:paddingRight="@dimen/padding_big"
+                android:paddingBottom="@dimen/padding_big">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Add a new shoe"
+                    android:src="@drawable/ic_add"
+                    app:backgroundTint="@color/colorPrimary"
+                    tools:src="@drawable/ic_add" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:text="Add a new shoe..."
+                    android:textSize="@dimen/name_text_size" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>
