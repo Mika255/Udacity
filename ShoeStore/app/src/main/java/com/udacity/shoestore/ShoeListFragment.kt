@@ -69,6 +69,7 @@ class ShoeListFragment : Fragment() {
                 )
             )
 
+
             // show shoe name inside horizontal layout
             val myText = TextView(activity)
             myText.text = shoe.name
