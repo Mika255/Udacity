@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.udacity.shoestore.databinding.FragmentShoeListBinding
@@ -40,53 +42,72 @@ class ShoeListFragment : Fragment() {
             Timber.i("Creating entry for Shoe ${shoe.name}")
 
             // fetches default padding from resources and converts to INT
-            val p = getResources().getDimension( R.dimen.padding_big).toInt()
-            val p2 = getResources().getDimension( R.dimen.padding_default).toInt()
+            val p = getResources().getDimension(R.dimen.padding_big).toInt()
+            val p2 = getResources().getDimension(R.dimen.padding_default).toInt()
 
-            val t1 = getResources().getDimension( R.dimen.name_text_size)
+            // hlayout - without apply
+            // val hLayout = LinearLayout(activity)
+            // hLayout.orientation = HORIZONTAL
+            // hLayout.setPadding(p, p, p, p)
+            // hLayout.setBackgroundResource(R.color.colorList)
+            // hLayout.setLayoutParams(
+            //     LinearLayout.LayoutParams(
+            //       LinearLayout.LayoutParams.MATCH_PARENT,
+            //       LinearLayout.LayoutParams.MATCH_PARENT
+            //   )
+            // )
 
             // create horizontal layout for one single shoe
-            val hLayout = LinearLayout(activity)
-            hLayout.orientation = HORIZONTAL
-            hLayout.setPadding(p, p, p, p)
-            hLayout.setBackgroundResource(R.color.colorList)
-            hLayout.setLayoutParams(
-                LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT
+            val hLayout = LinearLayout(activity).apply {
+                orientation = HORIZONTAL
+                setPadding(p, p, p, p)
+                setBackgroundResource(R.color.colorList)
+                setLayoutParams(
+                    LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
+                    )
                 )
-            )
-
+            }
 
             // show shoe icon inside horizontal layout
-            val myButton = FloatingActionButton(activity)
-            myButton.setImageResource(R.drawable.ic_launcher_foreground)
-            myButton.contentDescription = shoe.name
-            myButton.setLayoutParams(
-                LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+            val myButton = FloatingActionButton(activity).apply {
+                setImageResource(R.drawable.ic_launcher_foreground)
+                contentDescription = shoe.name
+                setLayoutParams(
+                    LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
                 )
-            )
-
+            }
 
             // show shoe name inside horizontal layout
-            val myText = TextView(activity)
-            myText.text = shoe.name
-            myText.gravity = Gravity.CENTER_VERTICAL
-            myText.setPadding(p2,0, 0, 0)
-            myText.setTextSize( TypedValue.COMPLEX_UNIT_PX, t1)
-            myText.setLayoutParams(
-                LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT
+            val myText = TextView(activity).apply {
+                text = shoe.name
+                gravity = Gravity.CENTER_VERTICAL
+                setPadding(p2, 0, 0, 0)
+                setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimension(R.dimen.name_text_size)
                 )
-            )
+                setLayoutParams(
+                    LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
+                    )
+                )
+            }
+
 
             Timber.i("Setting up shoeList onClickListener for ${shoe.name}")
             hLayout.setOnClickListener { v: View ->
+
+                // set selected shoe
                 viewModel.setCurrentShoe(shoe)
-                    v.findNavController()
+
+                // navigate to detail
+                v.findNavController()
                     .navigate(ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailFragment())
             }
 
@@ -110,8 +131,8 @@ class ShoeListFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shoe_list, container, false)
 
         // set up on click listener for adding a new shoe
-        binding.shoelistLayout.shoe_add_layout.setOnClickListener{ v: View ->
-            viewModel.setCurrentShoe(Shoe("",0.0,"","",listOf<String>()))
+        binding.shoelistLayout.shoe_add_layout.setOnClickListener { v: View ->
+            viewModel.setCurrentShoe(Shoe("", 0.0, "", "", listOf<String>()))
             v.findNavController()
                 .navigate(ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailFragment())
         }
@@ -128,10 +149,15 @@ class ShoeListFragment : Fragment() {
         return binding.root
     }
 
-    // makes action when menu logout is selected
+    // MENU Logout - goes back to login screen and pops the history
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item!!, requireView().findNavController())
-                || super.onOptionsItemSelected(item)
+        if (item.itemId == R.id.logout_menu) {
+            Timber.i("Found logout menu, navigating back to login.")
+            NavHostFragment.findNavController(this)
+                .navigate(ShoeListFragmentDirections.actionShoeListFragmentToLoginFragment())
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     // inflates options menu containing logout

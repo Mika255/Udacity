@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/loginFragment"
+        android:id="@+id/logout_menu"
         android:title="@string/logout_menu_text" />
 </menu>

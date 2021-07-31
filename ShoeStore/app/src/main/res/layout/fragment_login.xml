@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Login screen has a simple design, using linear layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,10 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_launcher_background"
+            android:gravity="center_vertical"
             android:padding="@dimen/padding_default"
             android:text="@string/login_title_text"
             android:textColor="@color/cardview_light_background"
-            android:textSize="?android:attr/windowTitleSize" />
+            android:textSize="@dimen/title_size" />
 
         <Space
             android:layout_width="match_parent"

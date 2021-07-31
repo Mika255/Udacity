@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.InstructionFragment">
 
+    <!-- Login screen has a simple design, using linear layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +20,7 @@
             android:padding="@dimen/padding_default"
             android:text="@string/instructions_title_text"
             android:textColor="@color/cardview_light_background"
-            android:textSize="34sp" />
+            android:textSize="@dimen/title_size" />
 
         <Space
             android:layout_width="match_parent"

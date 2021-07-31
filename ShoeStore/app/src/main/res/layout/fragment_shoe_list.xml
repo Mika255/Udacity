@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.ShoeListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Shoe List screen is a simple list, using linear layout, we do not need more flexible design -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,11 +20,12 @@
                 android:id="@+id/shoe_list_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:background="@drawable/ic_launcher_background"
                 android:padding="@dimen/padding_default"
                 android:text="@string/shoe_list_title"
                 android:textColor="@color/cardview_light_background"
-                android:textSize="?android:attr/windowTitleSize" />
+                android:textSize="@dimen/title_size" />
 
             <Space
                 android:layout_width="match_parent"
@@ -46,7 +47,7 @@
                     android:id="@+id/floatingActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Add a new shoe"
+                    android:contentDescription="@string/shoe_add_text"
                     android:src="@drawable/ic_add"
                     app:backgroundTint="@color/colorPrimary"
                     tools:src="@drawable/ic_add" />
@@ -56,7 +57,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/padding_default"
-                    android:text="Add a new shoe..."
+                    android:text="@string/shoe_add_text"
                     android:textSize="@dimen/name_text_size" />
 
             </LinearLayout>
