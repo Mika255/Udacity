@@ -10,142 +10,164 @@
             type="com.udacity.shoestore.models.ShoeViewModel" />
     </data>
 
-    <!-- Shoe Detail screen has a simple design, using linear layout, i do not need more flexibility -->
-    <LinearLayout
+    <!-- Shoe Detail screen uses constraint layout to avoid too much nested layouts -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_default">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/shoe_details_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_default"
+            android:layout_marginTop="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"
             android:background="@drawable/ic_launcher_background"
+            android:gravity="center_vertical"
             android:padding="@dimen/padding_default"
             android:text="@string/shoe_detail_title"
             android:textColor="@color/cardview_light_background"
             android:textSize="@dimen/title_size"
-            android:gravity="center_vertical" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/padding_big" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/shoe_name_text"
+            android:layout_width="@dimen/shoe_detail_text_size"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="@dimen/padding_default"
+            android:layout_marginTop="@dimen/padding_big"
+            android:gravity="center_horizontal|left"
+            android:padding="@dimen/padding_default"
+            android:text="@string/shoe_name_text"
+            android:textSize="@dimen/name_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shoe_details_title" />
 
-            <TextView
-                android:id="@+id/shoe_name_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/padding_default"
-                android:text="@string/shoe_name_text"
-                android:textSize="@dimen/name_text_size" />
-
-            <EditText
-                android:id="@+id/shoe_name_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textPersonName"
-                android:text="@={vm.current_shoe.name}"
-                android:textSize="@dimen/name_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/shoe_name_edit"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"
+            android:hint="Shoe Name"
+            android:inputType="textPersonName"
+            android:text="@={vm.current_shoe.name}"
+            android:textSize="@dimen/name_text_size"
+            app:layout_constraintBaseline_toBaselineOf="@+id/shoe_name_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/shoe_name_text" />
 
-            <TextView
-                android:id="@+id/shoe_company_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/padding_default"
-                android:text="@string/shoe_company_text"
-                android:textSize="@dimen/name_text_size" />
-
-            <EditText
-                android:id="@+id/shoe_company_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-                android:text="@={vm.current_shoe.company}"
-                android:textSize="@dimen/name_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/shoe_company_text"
+            android:layout_width="@dimen/shoe_detail_text_size"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="@dimen/padding_default"
+            android:layout_marginTop="@dimen/padding_default"
+            android:gravity="center_horizontal|left"
+            android:padding="@dimen/padding_default"
+            android:text="@string/shoe_company_text"
+            android:textSize="@dimen/name_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shoe_name_text" />
 
-            <TextView
-                android:id="@+id/shoe_size_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/padding_default"
-                android:text="@string/shoe_size_text"
-                android:textSize="@dimen/name_text_size" />
-
-            <EditText
-                android:id="@+id/shoe_size_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="numberSigned"
-                android:text="@={`` + vm.current_shoe.size}"
-                android:textSize="@dimen/name_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/shoe_company_edit"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"
+            android:hint="My Company"
+            android:inputType="text"
+            android:text="@={vm.current_shoe.company}"
+            android:textSize="@dimen/name_text_size"
+            app:layout_constraintBaseline_toBaselineOf="@+id/shoe_company_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.805"
+            app:layout_constraintStart_toEndOf="@+id/shoe_company_text" />
 
-            <TextView
-                android:id="@+id/shoe_desc_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/padding_default"
-                android:text="@string/shoe_desc_text"
-                android:textSize="@dimen/name_text_size" />
+        <TextView
+            android:id="@+id/shoe_size_text"
+            android:layout_width="@dimen/shoe_detail_text_size"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_default"
+            android:layout_marginTop="@dimen/padding_default"
+            android:gravity="center_horizontal|left"
+            android:padding="@dimen/padding_default"
+            android:text="@string/shoe_size_text"
+            android:textSize="@dimen/name_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shoe_company_text" />
 
-            <EditText
-                android:id="@+id/shoe_desc_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-                android:text="@={vm.current_shoe.description}"
-                android:textSize="@dimen/name_text_size" />
-        </LinearLayout>
+        <EditText
+            android:id="@+id/shoe_size_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_default"
+            android:layout_marginEnd="124dp"
+            android:hint="32.0"
+            android:inputType="numberSigned"
+            android:text="@={`` + vm.current_shoe.size}"
+            android:textSize="@dimen/name_text_size"
+            app:layout_constraintBaseline_toBaselineOf="@+id/shoe_size_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/shoe_size_text" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom|center"
-            android:orientation="horizontal"
-            android:padding="@dimen/padding_default">
+        <TextView
+            android:id="@+id/shoe_desc_text"
+            android:layout_width="@dimen/shoe_detail_text_size"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_default"
+            android:layout_marginTop="@dimen/padding_default"
+            android:gravity="center_horizontal|left"
+            android:padding="@dimen/padding_default"
+            android:text="@string/shoe_desc_text"
+            android:textSize="@dimen/name_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shoe_size_text" />
 
-            <Button
-                android:id="@+id/save_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Save" />
+        <EditText
+            android:id="@+id/shoe_desc_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="@dimen/padding_default"
+            android:hint="Describe the Shoe"
+            android:inputType="text"
+            android:text="@={vm.current_shoe.description}"
+            android:textSize="@dimen/name_text_size"
+            app:layout_constraintBaseline_toBaselineOf="@+id/shoe_desc_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/shoe_desc_text" />
 
-            <Button
-                android:id="@+id/cancel_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@android:string/cancel" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"
+            android:text="Save"
+            app:layout_constraintBaseline_toBaselineOf="@+id/cancel_button"
+            app:layout_constraintEnd_toStartOf="@+id/cancel_button"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"
+            android:layout_marginBottom="@dimen/padding_default"
+            android:text="@android:string/cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shoe_desc_edit"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>

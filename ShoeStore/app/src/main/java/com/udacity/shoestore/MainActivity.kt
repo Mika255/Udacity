@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.udacity.shoestore.databinding.ActivityMainBinding
@@ -19,15 +20,13 @@ import timber.log.Timber
  * DONE - All the layouts are missing code comments to justify the usage of Linear/ConstraintLayout
  * DONE - After log out from the log-in page user can go back to the list page.
  * DONE - From shoe detail page if user press cancel and then from list page press back button it goes back to the Shoe detail page
- * Nested layouts used in various layout files
- ** You have many nested layouts in fragment_shoe_detail, try to flatten the UI. You can simply use the Constraint layout to arrange all the elements. Learn here, How layouts impact the performance of the application.
+ * DONE - Nested layouts used in various layout files
+ * DONE - You have many nested layouts in fragment_shoe_detail, try to flatten the UI. You can simply use the Constraint layout to arrange all the elements. Learn here, How layouts impact the performance of the application.
  * DONE - For saving shoe details you should not access the text property using EditText. You can use the `ViewModel's property to save the shoe details.
  * DONE - You can access the dimension values from your code like
  * DONE - You can use Kotlin scope functions to reduce the repetition and write more concise code
  * DONE - You can extract these values to res/values/dimens.xml to re-use across all the layouts
- * You can use FragmentContainerView because fragment is deprecated
-
-
+ * DONE - You can use FragmentContainerView because fragment is deprecated
  *
  */
 
@@ -45,7 +44,10 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         Timber.i("fetching NavController")
-        val navController = findNavController(R.id.myNavHostFragment)
+        // from https://knowledge.udacity.com/questions/523342
+        // from https://knowledge.udacity.com/questions/632572
+        val navHostFragment = supportFragmentManager .findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         Timber.i("fetches AppBarConfiguration")
         appBarConfiguration = AppBarConfiguration(navController.graph)

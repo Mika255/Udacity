@@ -12,7 +12,7 @@
     <string name="instructions_text">It is very important to care for and maintain your shoes and boots, not only to make them look their very best, but also to prevent the leather from deteriorating. In modern shoe making, leather is more highly pigmented than it used to be. As a result, Shoe care products have increasing difficulty penetrating the leather and over time, with constant exposure to the elements, dry patches and unsightly cracking can appear on your shoes.</string>
     <string name="welcome_text">A welcome message is a message you send to customers once they land on your website or create an account with your service to greet and tell them more about your business.  At the same time, greeting the new customer is neither the only nor the primary thing a website welcome message can do. There are many other great goals that you can achieve with a wisely crafted welcome message. In fact, the format, content, style, and design should pursue a definite goal that starts the user’s journey across your website.</string>
     <string name="logout_menu_text">Logout</string>
-    <string name="shoe_name_text">name:</string>
+    <string name="shoe_name_text">Name:</string>
     <string name="shoe_company_text">Company:</string>
     <string name="shoe_size_text">Size:</string>
     <string name="shoe_desc_text">Description:</string>
