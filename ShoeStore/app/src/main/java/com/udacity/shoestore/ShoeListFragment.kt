@@ -103,8 +103,8 @@ class ShoeListFragment : Fragment() {
             Timber.i("Setting up shoeList onClickListener for ${shoe.name}")
             hLayout.setOnClickListener { v: View ->
 
-                // set selected shoe
-                viewModel.setCurrentShoe(shoe)
+                // set selected shoe (will modify this shoe)
+                viewModel.setCurrentShoe( shoe, false )
 
                 // navigate to detail
                 v.findNavController()
@@ -132,7 +132,7 @@ class ShoeListFragment : Fragment() {
 
         // set up on click listener for adding a new shoe
         binding.shoelistLayout.shoe_add_layout.setOnClickListener { v: View ->
-            viewModel.setCurrentShoe(Shoe("", 0.0, "", "", listOf<String>()))
+            viewModel.setCurrentShoe(Shoe("New Shoe", 0.0, "", "", listOf<String>()), true)
             v.findNavController()
                 .navigate(ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailFragment())
         }

@@ -16,10 +16,15 @@ class ShoeViewModel : ViewModel() {
     val shoesListLiveData: LiveData<List<Shoe>>
         get() = _shoesListLiveData
 
-    // The current Shoe
+    // The current Shoe being edited
     private val _current_shoe = MutableLiveData<Shoe>()
     val current_shoe: LiveData<Shoe>
         get() = _current_shoe
+
+    // If the current shoe is new
+    private var _is_new_shoe : Boolean = false
+    val isShoeNew : Boolean
+        get() = _is_new_shoe
 
 
     // adds shoes and triggers all observer
@@ -29,9 +34,10 @@ class ShoeViewModel : ViewModel() {
     }
 
 
-    fun setCurrentShoe( cshoe: Shoe ) {
+    fun setCurrentShoe( cshoe: Shoe, isNewShoe: Boolean ) {
         Timber.i("Set current shoe to ${cshoe.name}")
         _current_shoe.value = cshoe
+        _is_new_shoe = isNewShoe
     }
 
     init {

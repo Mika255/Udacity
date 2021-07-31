@@ -40,8 +40,9 @@ class ShoeDetailFragment : Fragment() {
         Timber.i("Setting up navigation onClickListener")
 
         // cancel goes back to list without saving
-        binding.cancelButton.setOnClickListener{v: View ->
-            v.findNavController().navigate(ShoeDetailFragmentDirections.actionShoeDetailFragmentToShoeListFragment())
+        binding.cancelButton.setOnClickListener { v: View ->
+            v.findNavController()
+                .navigate(ShoeDetailFragmentDirections.actionShoeDetailFragmentToShoeListFragment())
         }
 
         // set current shoe from view model - would also work, why use data binding?
@@ -51,40 +52,35 @@ class ShoeDetailFragment : Fragment() {
         //binding.shoeDescEdit.setText( viewModel.current_shoe.value?.description)
 
 
-        // this saves all information about the shoe
-        binding.saveButton.setOnClickListener{v: View ->
+        // if SAVE is pressed: create new shoe if needed and go back to list
+        binding.saveButton.setOnClickListener { v: View ->
             Timber.i("Saving new shoe...")
             Timber.i("....name: ${binding.shoeNameEdit.text}")
-            Timber.i("....name: ${viewModel.current_shoe.value?.name}")
+            Timber.i("....name vm: ${viewModel.current_shoe.value?.name}")
             Timber.i("....size: ${binding.shoeSizeEdit.text}")
-            Timber.i("....size: ${viewModel.current_shoe.value?.size}")
+            Timber.i("....size vm: ${viewModel.current_shoe.value?.size}")
             Timber.i("....company: ${binding.shoeCompanyEdit.text}")
-            Timber.i("....company: ${viewModel.current_shoe.value?.company}")
+            Timber.i("....company vm: ${viewModel.current_shoe.value?.company}")
             Timber.i("....desc: ${binding.shoeDescEdit.text}")
-            Timber.i("....desc: ${viewModel.current_shoe.value?.description}")
+            Timber.i("....desc vm: ${viewModel.current_shoe.value?.description}")
 
-            // adds shoe to view model
-/*
-            viewModel.addShoe(
-                Shoe(
-                    viewModel.current_shoe.value.name
+            // if it's a new shoe, adds shoe to view model
+            if (viewModel.isShoeNew) {
+                viewModel.addShoe(
+                    Shoe(
+                        viewModel.current_shoe.value!!.name,
+                        viewModel.current_shoe.value!!.size,
+                        viewModel.current_shoe.value!!.company,
+                        viewModel.current_shoe.value!!.description,
+                        listOf("IMG")
+                    )
+                )
+            }
 
-                    ))
-*/
-/*
-            viewModel.addShoe(
-                Shoe(
-                    binding.shoeNameEdit.text.toString(),
-                    binding.shoeSizeEdit.text.toString().toDouble(),
-                    binding.shoeCompanyEdit.text.toString(),
-                    binding.shoeDescEdit.text.toString(),
-                    listOf("IMG"))
-
-            )
-*/
 
             // go back to list
-            v.findNavController().navigate(ShoeDetailFragmentDirections.actionShoeDetailFragmentToShoeListFragment())
+            v.findNavController()
+                .navigate(ShoeDetailFragmentDirections.actionShoeDetailFragmentToShoeListFragment())
         }
 
 

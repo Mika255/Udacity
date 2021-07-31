@@ -21,8 +21,7 @@ import timber.log.Timber
  * DONE - From shoe detail page if user press cancel and then from list page press back button it goes back to the Shoe detail page
  * Nested layouts used in various layout files
  ** You have many nested layouts in fragment_shoe_detail, try to flatten the UI. You can simply use the Constraint layout to arrange all the elements. Learn here, How layouts impact the performance of the application.
- * For saving shoe details you should not access the text property using EditText. You can use the `ViewModel's property to save the shoe details.
- ** You should not access the shoe details using EditTetxt's text property. You can fix it by using ViewModel's property to save the shoe details
+ * DONE - For saving shoe details you should not access the text property using EditText. You can use the `ViewModel's property to save the shoe details.
  * DONE - You can access the dimension values from your code like
  * DONE - You can use Kotlin scope functions to reduce the repetition and write more concise code
  * DONE - You can extract these values to res/values/dimens.xml to re-use across all the layouts

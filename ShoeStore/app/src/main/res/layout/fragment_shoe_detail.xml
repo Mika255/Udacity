@@ -8,9 +8,6 @@
         <variable
             name="vm"
             type="com.udacity.shoestore.models.ShoeViewModel" />
-        <variable
-            name="shoe"
-            type="com.udacity.shoestore.models.Shoe" />
     </data>
 
     <!-- Shoe Detail screen has a simple design, using linear layout, i do not need more flexibility -->
@@ -54,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:text="@{vm.current_shoe.name}"
+                android:text="@={vm.current_shoe.name}"
                 android:textSize="@dimen/name_text_size" />
         </LinearLayout>
 
@@ -77,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
-                android:text="@{vm.current_shoe.company}"
+                android:text="@={vm.current_shoe.company}"
                 android:textSize="@dimen/name_text_size" />
         </LinearLayout>
 
@@ -100,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="numberSigned"
-                android:text="@{String.valueOf(vm.current_shoe.size)}"
+                android:text="@={`` + vm.current_shoe.size}"
                 android:textSize="@dimen/name_text_size" />
         </LinearLayout>
 
@@ -123,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
-                android:text="@{vm.current_shoe.description}"
+                android:text="@={vm.current_shoe.description}"
                 android:textSize="@dimen/name_text_size" />
         </LinearLayout>
 
