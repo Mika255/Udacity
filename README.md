@@ -1,2 +1,2 @@
-# Udacity
-Udacity Android
+# Udacity Android Course
+Results of the Android Udacity course
