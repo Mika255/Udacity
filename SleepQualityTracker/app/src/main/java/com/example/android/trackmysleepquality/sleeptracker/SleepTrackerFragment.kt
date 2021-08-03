@@ -22,8 +22,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerBinding
@@ -67,7 +69,20 @@ class SleepTrackerFragment : Fragment() {
         binding.sleepTrackerViewModel = sleepTrackerViewModel
 
         // binding can observe live-data updates
-        binding.setLifecycleOwner( this )
+        binding.setLifecycleOwner(this)
+
+        // observe livedata -navigateToSleepQuality- (of type SleepNight) -> night is an update
+        sleepTrackerViewModel.navigateToSleepQuality.observe(viewLifecycleOwner, Observer { night ->
+            night?.let {
+                findNavController().navigate(
+                    SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepQualityFragment(
+                        night.nightId
+                    )
+                )
+                sleepTrackerViewModel.doneNavigating()
+            }
+        }
+        )
 
         return binding.root
     }

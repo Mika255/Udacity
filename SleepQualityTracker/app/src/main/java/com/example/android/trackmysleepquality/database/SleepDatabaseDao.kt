@@ -34,7 +34,7 @@ interface SleepDatabaseDao {
     // where nightId (column in DB) matches given key (see our function param)
     // will return one SleepNight because key is unique or NULL
     @Query("SELECT * from daily_sleep_quality_table WHERE nightId = :key")
-    suspend fun get(key: Long): SleepNight
+    suspend fun get(key: Long): SleepNight?
 
     // clears complete table
     @Query("DELETE FROM daily_sleep_quality_table")
