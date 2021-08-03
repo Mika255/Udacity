@@ -15,3 +15,51 @@
  */
 
 package com.example.android.trackmysleepquality.database
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+// SleepDatabase
+// entity: which entity is stored in DB (here: using just one Entity)
+// exportSchema = false -> doesn't store to filesystem
+@Database(entities = [SleepNight::class], version = 1, exportSchema = false)
+abstract class SleepDatabase : RoomDatabase() {
+    abstract val sleepDatabaseDao: SleepDatabaseDao
+
+    companion object {
+
+        // @Volatile: value of INSTANCE will never be cached
+        // updates from one thread are visible to all threads immediately
+        @Volatile
+        private var INSTANCE: SleepDatabase? = null
+
+        // Singleton pattern
+        fun getInstance(context: Context): SleepDatabase {
+
+            // thread synchronization for DB init
+            // - only 1 thread at a time can create a DB
+            synchronized(this) {
+                var instance = INSTANCE
+
+                if (instance == null) {
+
+                    // this creates database of type SleepDatabase
+                    // DestructiveMigration: we have no migration from old to new DB
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        SleepDatabase::class.java,
+                        "sleep_history_database"
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
+
+                    // we created a DB, save it!
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
+}

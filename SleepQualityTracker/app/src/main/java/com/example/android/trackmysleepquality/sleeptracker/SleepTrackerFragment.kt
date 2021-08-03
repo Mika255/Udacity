@@ -22,7 +22,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.android.trackmysleepquality.R
+import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerBinding
 
 /**
@@ -37,12 +40,34 @@ class SleepTrackerFragment : Fragment() {
      *
      * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_tracker, container, false)
+            inflater, R.layout.fragment_sleep_tracker, container, false
+        )
+
+        // checks that activity is not null via Kotlin method
+        val application = requireNotNull(this.activity).application
+
+        // fetches DB (and creates one if doesn't exist)
+        val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
+
+        // creates view-model factory instance with appropriate arguments
+        val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
+
+        // fetches view model from factory
+        val sleepTrackerViewModel =
+            ViewModelProvider(this, viewModelFactory).get(SleepTrackerViewModel::class.java)
+
+        // data-binding to sleepTrackerViewModel
+        binding.sleepTrackerViewModel = sleepTrackerViewModel
+
+        // binding can observe live-data updates
+        binding.setLifecycleOwner( this )
 
         return binding.root
     }
