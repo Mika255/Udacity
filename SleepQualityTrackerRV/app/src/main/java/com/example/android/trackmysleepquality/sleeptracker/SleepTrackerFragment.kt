@@ -73,7 +73,7 @@ class SleepTrackerFragment : Fragment() {
         // this calls the set method of our List<SleepNight> within adapter
         sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
             it?.let{
-                adapter.data = it
+                adapter.submitList( it )
             }
         })
 
