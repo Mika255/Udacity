@@ -21,13 +21,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.trackmysleepquality.R
-import com.example.android.trackmysleepquality.convertDurationToFormatted
-import com.example.android.trackmysleepquality.convertNumericQualityToString
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.databinding.ListItemSleepNightBinding as ListItemSleepNightBinding
 
-class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
+class SleepNightAdapter(val clickListener: SleepNightListener) : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
 
 
     // when RecycleView needs new view-hold, e.g. when starting up
@@ -41,7 +38,7 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
         val item = getItem(position)
 
         // binds item to view-holder, i.e. updates view with current parameters
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
 
@@ -63,9 +60,15 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
 
         /**
          * binds item to view-holder, i.e. updates view with current parameters of sleep night
+         * binds our current item to the XML layout variable "sleep"
          */
-        fun bind(item: SleepNight) {
+        fun bind(item: SleepNight, clickListener: SleepNightListener) {
+
+            // pass SleepNight to XML
             binding.sleep = item
+
+            // pass clickListener to XML
+            binding.clickListener = clickListener
 
             // forces FW to execute bindings
             binding.executePendingBindings()
@@ -86,5 +89,8 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
         }
     }
 
+}
 
+class SleepNightListener(val clickListener: (sleepId: Long) -> Unit) {
+    fun onClick(night: SleepNight) = clickListener(night.nightId)
 }
