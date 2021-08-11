@@ -22,8 +22,13 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 private const val BASE_URL = "https://mars.udacity.com/"
+
+// enum full of constants to match the query values our web service expects
+enum class MarsApiFilter(val value: String) {SHOW_RENT("rent"), SHOW_BUY("buy"), SHOW_ALL("all")}
+
 
 /**
  * Create Moshi Builder
@@ -46,7 +51,7 @@ private val retrofit = Retrofit.Builder()
  */
 interface MarsApiService {
     @GET("realestate")
-    suspend fun getProperties():
+    suspend fun getProperties(@Query("filter") type: String):
             List<MarsProperty>
 }
 
