@@ -24,7 +24,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.databinding.ListItemSleepNightBinding as ListItemSleepNightBinding
 
-class SleepNightAdapter(val clickListener: SleepNightListener) : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
+class SleepNightAdapter(val clickListener: SleepNightListener) :
+    ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
 
 
     // when RecycleView needs new view-hold, e.g. when starting up
@@ -55,8 +56,10 @@ class SleepNightAdapter(val clickListener: SleepNightListener) : ListAdapter<Sle
 
     /**
      * ViewHolder responsible for everything managing views.
+     * needs binding to access its views
      */
-    class ViewHolder private constructor(val binding: ListItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListItemSleepNightBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         /**
          * binds item to view-holder, i.e. updates view with current parameters of sleep night

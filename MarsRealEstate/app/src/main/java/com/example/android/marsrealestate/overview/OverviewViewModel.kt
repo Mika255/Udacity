@@ -29,21 +29,37 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
 
+enum class MarsApiStatus { LOADING, ERROR, DONE }
+
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
 class OverviewViewModel : ViewModel() {
 
-    // The internal MutableLiveData String that stores the status of the most recent request
-    private val _status = MutableLiveData<String>()
+    // The internal MutableLiveData storing the status of the most recent request
+    private val _status = MutableLiveData<MarsApiStatus>()
 
-    // The external immutable LiveData for the request status String
-    val status: LiveData<String>
+    // The external immutable LiveData to request status
+    val status: LiveData<MarsApiStatus>
         get() = _status
 
-    private val _property = MutableLiveData<MarsProperty>()
-    val property: LiveData<MarsProperty>
-        get() = _property
+    private val _properties = MutableLiveData<List<MarsProperty>>()
+    val properties: LiveData<List<MarsProperty>>
+        get() = _properties
+
+    // used to transfer data from Overview to Details
+    // when this is set, we are navigating
+    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
+    val navigateToSelectedProperty: LiveData<MarsProperty>
+        get() = _navigateToSelectedProperty
+
+    fun displayPropertyDetails(marsProperty: MarsProperty) {
+        _navigateToSelectedProperty.value = marsProperty
+    }
+
+    fun displayPropertyDetailsComplete() {
+        _navigateToSelectedProperty.value = null
+    }
 
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
@@ -58,15 +74,16 @@ class OverviewViewModel : ViewModel() {
     private fun getMarsRealEstateProperties() {
         // Call the MarsApi for Retrofit request inside a coroutine
         viewModelScope.launch {
+            // set loading when starting loading
+            _status.value = MarsApiStatus.LOADING
             try {
                 var listResult = MarsApi.retrofitService.getProperties()
-
-                if (listResult.size > 0) {
-                    _property.value = listResult[0]
-                }
-                _status.value = "Success: ${listResult.size}"
+                // loading is done
+                _status.value = MarsApiStatus.DONE
+                _properties.value = listResult
             } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
+                _status.value = MarsApiStatus.ERROR
+                _properties.value = ArrayList()
             }
         }
     }
