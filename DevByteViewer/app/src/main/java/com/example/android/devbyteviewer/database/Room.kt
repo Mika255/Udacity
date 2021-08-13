@@ -22,6 +22,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 
+/**
+ * Stores a collection of DB videos in a Room DB
+ */
 @Dao
 interface VideoDao {
 

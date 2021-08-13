@@ -16,3 +16,48 @@
  */
 
 package com.example.android.devbyteviewer.repository
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.example.android.devbyteviewer.database.VideosDatabase
+import com.example.android.devbyteviewer.database.asDomainModel
+import com.example.android.devbyteviewer.domain.Video
+import com.example.android.devbyteviewer.network.Network
+import com.example.android.devbyteviewer.network.asDatabaseModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+
+/**
+ * Our OFFLINE cache
+ * Repo for fetching videos from the network
+ * and storing them into our database (disk)
+ */
+class VideosRepository(private val database: VideosDatabase) {
+
+    /**
+     * Playlist of videos that can be shown on the screen:
+     * via this "videos" variable, the Domain can access Videos
+     * which are read from our offline database
+     */
+    val videos: LiveData<List<Video>> = Transformations.map(database.videoDao.getVideos()) {
+        it.asDomainModel()
+    }
+
+
+    /**
+     * Refresh offline database (our cache) from network
+     * Due to 'withContext', this function always runs on the IO dispatcher
+     * its safe to call from any thread incl. the main thread
+     */
+    suspend fun refreshVideos() {
+
+        // forces coroutine to use IO dispatcher
+        withContext(Dispatchers.IO) {
+
+            // waits until finished, and doesn't block the IO thread
+            val playlist = Network.devbytes.getPlaylist().await()
+            database.videoDao.insertAll(*playlist.asDatabaseModel())
+        }
+    }
+}

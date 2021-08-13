@@ -47,6 +47,7 @@ private val moshi = Moshi.Builder()
 
 /**
  * Main entry point for network access. Call like `Network.devbytes.getPlaylist()`
+ * object: Kotlins Singleton!
  */
 object Network {
     // Configure retrofit to parse JSON and use coroutines

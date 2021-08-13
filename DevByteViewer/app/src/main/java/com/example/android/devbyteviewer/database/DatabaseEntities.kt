@@ -22,7 +22,7 @@ import androidx.room.PrimaryKey
 import com.example.android.devbyteviewer.domain.Video
 
 /**
- * Entity of our SQLite Room Database
+ * Database Entity of our SQLite Room Database
  * PrimaryKey is our URL
  */
 @Entity
