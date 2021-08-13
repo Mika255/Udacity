@@ -21,7 +21,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/add_gdg"
-                    android:textColor="#AAAAAA"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="@dimen/spacing_normal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -115,18 +114,18 @@
                     android:singleLine="true"/>
 
             <!--wrap in a layout to group-->
-            <!--<LinearLayout -->
-            <!--android:id="@+id/contentGroup"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:focusable="true"-->
-            <!--app:layout_constraintTop_toBottomOf="@id/EditTextRegion"-->
-            <!--android:orientation="vertical"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/EditTextRegion"-->
-            <!--app:layout_constraintEnd_toEndOf="@+id/EditTextRegion"-->
-            <!--android:layout_marginTop="@dimen/spacing_normal"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/button"-->
-            <!--android:layout_marginBottom="8dp">-->
+            <LinearLayout
+            android:id="@+id/contentGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/EditTextRegion"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@+id/EditTextRegion"
+            app:layout_constraintEnd_toEndOf="@+id/EditTextRegion"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            android:layout_marginBottom="8dp">
 
             <TextView
                     android:id="@+id/labelTextWhy"
@@ -157,20 +156,18 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginBottom="8dp"/>
 
-            <!--</LinearLayout>-->
+            </LinearLayout>
 
             <Button
                     android:id="@+id/button"
+                    android:accessibilityLiveRegion="polite"
                     android:contentDescription="@string/submit_button_description"
-                    android:text="Ok"
-                    android:layout_width="40dp"
-                    android:layout_height="24dp"
+                    android:text="@string/submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/EditTextWhy"
-                    android:backgroundTint="#00FF00"
-                    android:textColor="#FF0000"
-                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@id/contentGroup"
                     android:layout_marginBottom="12dp"
                     android:layout_marginEnd="40dp"
                     android:onClick="@{() -> viewModel.onSubmitApplication()}"/>
