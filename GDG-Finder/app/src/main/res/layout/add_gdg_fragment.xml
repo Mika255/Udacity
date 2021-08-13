@@ -31,6 +31,7 @@
 
             <ImageView
                     android:id="@+id/imageView"
+                    android:contentDescription="@string/stage_image_description"
                     android:layout_width="411dp"
                     android:layout_height="230dp"
                     tools:src="@tools:sample/avatars"
@@ -45,6 +46,7 @@
 
             <EditText
                     android:id="@+id/EditTextName"
+                    android:hint="@string/your_name_label"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:layout_marginTop="8dp"
@@ -59,6 +61,7 @@
 
             <EditText
                     android:id="@+id/EditTextEmail"
+                    android:hint="@string/email_label"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:layout_marginTop="4dp"
@@ -72,6 +75,7 @@
                     android:singleLine="true"/>
             <EditText
                     android:id="@+id/EditTextCity"
+                    android:hint="@string/city_label"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:layout_marginTop="4dp"
@@ -127,6 +131,7 @@
             <TextView
                     android:id="@+id/labelTextWhy"
                     android:text="@string/motivation"
+                    android:contentDescription="@string/motivation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
@@ -142,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:ems="10"
+                    android:hint="@string/enter_motivation"
                     app:layout_constraintTop_toBottomOf="@+id/EditTextRegion"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -155,6 +161,7 @@
 
             <Button
                     android:id="@+id/button"
+                    android:contentDescription="@string/submit_button_description"
                     android:text="Ok"
                     android:layout_width="40dp"
                     android:layout_height="24dp"
